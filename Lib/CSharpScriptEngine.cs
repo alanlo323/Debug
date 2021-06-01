@@ -23,7 +23,6 @@ namespace Debug.Lib
         //     Execution result.
         public async static Task<object> Execute(string code)
         {
-            var r = await CSharpScript.RunAsync(code);
             scriptState = scriptState == null ? await CSharpScript.RunAsync(code) : await scriptState.ContinueWithAsync(code);
             if (scriptState.ReturnValue != null && !string.IsNullOrEmpty(scriptState.ReturnValue.ToString()))
                 return scriptState.ReturnValue;
