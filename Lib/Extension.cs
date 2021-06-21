@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Injection;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -9,21 +10,21 @@ namespace Debug.Lib
     //
     // Summary:
     //     Extension class.
-    static class Extension
+    internal static class Extension
     {
-        //
-        // Summary:
-        //     Run a C# script.
-        //
-        // Parameters:
-        //   code:
-        //     Code to run.
-        //
-        // Returns:
-        //     Execution result.
-        public static async Task<object> RunAsCode(this string code)
+        public static async Task<object> RunAsCode(this CodeView codeView)
         {
-            return await CSharpScriptEngine.Execute(code);
+            return await CSharpScriptEngine.ExecuteCode(codeView);
+        }
+
+        public static async Task<object> RunAsClass(this CodeView codeView)
+        {
+            return await CSharpScriptEngine.ExecuteClass(codeView);
+        }
+
+        public static async Task<object> RunAsScript(this string code)
+        {
+            return await CSharpScriptEngine.ExecuteScript(code);
         }
 
         public static string Base64Encode(this string plainText)
